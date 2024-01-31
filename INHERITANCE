@@ -1,0 +1,86 @@
+class Employeegroup {
+    public static void main(String args[]) {
+        Manager ma = new Manager();
+        ma.setdata("Jeswin", 20, 945649939, "Thandassery house",2000,"CSE");
+        ma.printdata();
+        ma.printsalary();
+        Officer of = new Officer();
+        of.setdata("Jeeson", 18, 56556566, "Thelapiily house",1000,"MTECH");
+        of.printdata();
+        of.printsalary();
+        Employee ea = new Employee();
+        ea.printsalary();
+        ea = ma;
+        ea.printsalary();
+        ea = of;
+        ea.printsalary();
+    }
+}
+class Employee {
+    String name, address;
+    int salary, phonenumber, age;
+
+    Employee() {
+        salary = 0;
+    }
+
+    public void printsalary() {
+        System.out.println("salary is :" + salary);
+    }
+}
+
+class Officer extends Employee {
+    String specialisattion;
+
+    public void setdata(String name,int age,int phonenumber,String address,int salary,String specialisation)
+    {
+        this.name=name;
+        this.age=age;
+        this.phonenumber=phonenumber;
+        this.address=address;
+        this.salary=salary;
+        this.specialisattion=specialisation;
+
+    }
+
+    public void printdata()
+    {
+        System.out.println("name-"+name);
+        System.out.println("age-"+age);
+        System.out.println("phonenumber-"+phonenumber);
+        System.out.println("address-"+address);
+        System.out.println("specialisation-"+specialisattion);
+    }
+
+    @Override
+    public void printsalary() {
+        System.out.println("Salary-" + salary);
+    }
+}
+
+class Manager extends Employee
+{
+   String department;
+    public void setdata(String name,int age,int phonenumber,String address,int salary,String department)
+    {
+        this.name=name;
+        this.age=age;
+        this.phonenumber=phonenumber;
+        this.address=address;
+        this.salary=salary;
+        this.department=department;
+
+    }
+    public void printdata()
+    {
+        System.out.println("name-"+name);
+        System.out.println("age-"+age);
+        System.out.println("phonenumber-"+phonenumber);
+        System.out.println("address-"+address);
+        System.out.println("department-"+department);
+    }
+    @Override
+    public void printsalary() {
+        System.out.println("Salary-"+salary);
+    }
+}
