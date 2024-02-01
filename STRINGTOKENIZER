@@ -1,0 +1,28 @@
+import java.util.*;
+import java.io.*;
+
+public class Stringtoken {
+    public static void main(String args[]) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str, data;
+        try {
+            System.out.println("Enter the string:  ");
+            data = br.readLine();
+            int num, sum = 0;
+            StringTokenizer st = new StringTokenizer(data, " ");
+            while (st.hasMoreTokens()) {
+                str = st.nextToken();
+                num = Integer.parseInt(str);
+                sum = sum + num;
+                System.out.println("integer is :" + num);
+            }
+            System.out.println("Sum is:" + sum);
+        } catch (IOException e) {
+            System.out.println("IO Exception" + e);
+        } catch (NumberFormatException e) {
+            System.out.println("Numberformat Exception" + e);
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+}
