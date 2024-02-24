@@ -1,0 +1,106 @@
+class Global
+{
+   public static Integer number=0;
+   public static Boolean num_gen=false;
+}
+ class Random extends Thread
+{
+   public void run()
+   {
+      while(true)
+      {
+         boolean status=Global.num_gen;
+         while(status)
+         {
+            synchronized(Global.num_gen)
+            {
+               status=Global.num_gen;
+            }
+         }
+         try
+         {
+            Thread.sleep(1000);
+         }
+         catch(Exception e)
+         {
+            System.out.println(e);
+         }
+         synchronized(Global.number)
+         {
+            Global.number=(int)(Math.random()*1000);
+         }
+         synchronized(Global.num_gen)
+         {
+            Global.num_gen=true;
+         }
+      }
+   }
+}
+class Square extends Thread
+{
+   public void run()
+   {
+      long square=0;
+      while(true)
+      {
+         synchronized(Global.num_gen)
+         {
+            if(Global.num_gen==false)
+            {
+               continue;
+            }
+            if(Global.number%2==0)
+            {
+               square=Global.number*Global.number;
+               System.out.println("number:"+Global.number+"square:"+square);
+               Global.num_gen=false;
+            }
+         }
+      }
+   }      
+}
+class OddPrint extends Thread
+{
+   public void run()
+   {
+      long cube;
+      while(true)
+      {
+         synchronized(Global.num_gen)
+         {
+            if(Global.num_gen==false)
+            {
+               continue;
+            }
+            if(Global.number%2==1)
+            {
+               cube=Global.number*Global.number*Global.number;
+               System.out.println("Number:"+Global.number+"cube:"+cube);
+               Global.num_gen=false;
+            }
+         }
+      }
+   }
+}
+public class Thread1
+{
+   public static void main(String args[])    
+   {
+      Random t1=new Random();
+      Square t2=new Square();
+      OddPrint t3=new OddPrint();
+      t1.start();
+      t2.start();
+      t3.start();
+      try
+      {
+         t1.join();
+         t2.join();
+         t3.join();
+      }
+      catch(Exception e)
+      {
+         System.out.println("Error");
+      }
+   }
+}
