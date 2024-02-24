@@ -1,0 +1,37 @@
+import java .util.*;
+import java.io.FileWriter;
+import java.io.FileReader;
+public class Writer
+{
+   public static void main(String args[])
+   {
+      Scanner sc=new Scanner(System.in);
+      System.out.println("enter the text");
+      String str=sc.nextLine();
+      try
+      {
+         FileWriter fw=new FileWriter("sample.txt");
+	 fw.write(str);
+	 System.out.println("file written");
+	 fw.close();
+      }
+      catch(Exception e)
+      {
+         System.out.println("error occured");
+      }
+      char[] a=new char[50];
+      try
+      {
+	 FileReader fr=new FileReader("sample.txt");
+         fr.read(a);
+         System.out.println("reading file");
+         System.out.println(a);
+         fr.close();
+      }
+      catch(Exception e)
+      {
+         System.out.println("error occured");
+
+      }
+   }
+}
