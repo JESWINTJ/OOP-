@@ -1,0 +1,43 @@
+class frequency
+{
+   private char ar[];
+   private int len=0;
+   frequency(char ar[])
+   {
+      this.ar=ar;
+   }
+   void check()
+   {
+      for(int i=0;ar[i]!='\0';i++)
+      {
+         len++;
+      }      
+      int a;
+      for(char ch='a';ch<='z';ch++)
+      {
+         a=0;
+         for(int i=0;i<len;i++)
+         {
+            if(ch==ar[i])
+            {
+               System.out.println(ch);
+               a=a+1;
+            }
+         }
+         if(a!=0)
+         {
+            System.out.println(ch +"="+ a);
+         }
+      }
+   }
+}
+public class Frequencyobject
+{
+   public static void main(String[] args)
+   {
+      char[] ar={'a','b','a','a','\0'};
+      frequency f; 
+      f=new frequency(ar);
+      f.check();
+   }
+}
