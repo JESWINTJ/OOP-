@@ -1,0 +1,56 @@
+import java.util.Scanner;
+public class Main
+{
+   public static void main(String[] args)
+   {
+      Scanner sc=new Scanner(System.in);
+      System.out.println("enter number:");
+      int num=sc.nextInt();
+       try
+       {
+           checkNum(num);
+       }
+       catch(EvenException ex)
+       {  
+
+           System.out.println("The occured error "+ex);
+       }
+        catch(OddException ex)
+       {  
+
+           System.out.println("The occured error "+ex);
+       }
+       finally
+       {
+           System.out.println("THE FINALLY BLOCK IS EXECUTED");
+       }
+   }
+
+   public static void checkNum(int num)throws EvenException,OddException
+   {
+    if(num%2==0)
+    {
+        throw new EvenException();
+    }
+    if(num%2==1)
+    {
+        throw new OddException();
+    }
+   }
+}
+class OddException extends Exception
+{
+   public String toString()
+   {
+       return "Odd number Exception";
+   }
+}   
+class EvenException extends Exception  
+{
+   public String toString()
+   {
+       return "Even number Exception";
+   }
+}
+
+
