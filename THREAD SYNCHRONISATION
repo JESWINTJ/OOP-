@@ -1,0 +1,112 @@
+class Print
+{
+   boolean state;
+   synchronized public void  printodd(int num)
+   {
+      while(!state)
+      {
+         try
+         {
+            wait();
+         }
+         catch(Exception e)
+         {
+            System.out.println(e);
+         }
+      }
+      state=false;
+      System.out.println(num);
+      try
+      {
+         Thread.sleep(1000);
+      }
+      catch(Exception e)
+      {
+         System.out.println(e);
+      }
+      notifyAll();
+   }
+   Print()
+   {
+      state=true;
+   }
+   synchronized public void printeven(int num)
+   {
+      while(state)
+      {
+         try{
+            wait();
+         }
+         catch(Exception e)
+         {
+            System.out.println(e);
+         }
+      }
+      state=true;
+      System.out.println(num);
+      try
+      {
+         Thread.sleep(1000);
+      }
+      catch(Exception e)
+      {
+         System.out.println(e);
+      }
+      notifyAll();
+   }
+}
+class Even extends Thread
+{
+   Print p;
+   Even(Print p)
+   {
+      this.p=p;
+   }
+   public void run()
+   {
+      int num=2;
+      while(true)
+      {
+         p.printeven(num);
+         num+=2;
+      }
+   }
+}
+class Odd extends Thread
+{
+   Print p;
+   Odd(Print p)
+   {
+      this.p=p;
+   }
+   public void run()
+   {
+      int num=1;
+      while(true)
+      {
+         p.printodd(num);
+         num+=2;
+      }
+   }
+}
+public class Threadsync
+{
+   public static Print out=new Print();
+   public static void main(String[] args)
+   {
+      Print p1=new Print();
+      Even t1=new Even(p1);
+      Odd  t2=new Odd(p1);
+      t1.start();
+      t2.start();
+      try
+      {
+         t1.join();
+         t2.join();
+      }
+      catch(Exception e)
+      {
+         System.out.println("error");
+      }
+   }
+}
